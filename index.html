@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Automation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    <div class="container">
+      <h2>Email Automation Tool</h2>
+      <form
+        action="{{ url_for('send_email') }}"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div class="form-group">
+          <label for="username">Sender Email:</label>
+          <input
+            type="email"
+            class="form-control"
+            name="username"
+            id="username"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">App Password:</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            id="password"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="subject">Enter Subject of the mail:</label>
+          <input
+            type="text"
+            class="form-control"
+            name="subject"
+            id="subject"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="body">Enter the body of the mail:</label>
+          <textarea
+            class="form-control"
+            name="body"
+            id="body"
+            rows="6"
+            required
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="file">Upload Excel file:</label>
+          <input
+            type="file"
+            class="form-control-file"
+            name="file"
+            id="file"
+            accept=".xlsx"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Send emails</button>
+      </form>
+
+      <!-- Flash Messages for Success/Error -->
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <div class="alert alert-info mt-3">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+      </div>
+      {% endif %} {% endwith %}
+    </div>
+  </body>
+</html>
